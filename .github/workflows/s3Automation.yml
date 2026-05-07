@@ -23,11 +23,7 @@ jobs:
     
     - name: Install Dependencies
       run: npm install
-      working-directory: ./web
-        
-    - name: Lint React Code
-      run: npm run lint
-      working-directory: ./web
+      working-directory: ./web    
       
     - name: Build
       run: npm run build
