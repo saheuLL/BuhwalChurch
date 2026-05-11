@@ -38,26 +38,26 @@ resource "aws_s3_bucket_policy" "buhwalch_policy" {
   })
 }
 
-resource "aws_s3_object" "html" {
-  bucket = aws_s3_bucket.buhwalch_bucket.id
-  key    = "main.html"
-  source = "../main.html"
+# resource "aws_s3_object" "html" {
+#   bucket = aws_s3_bucket.buhwalch_bucket.id
+#   key    = "main.html"
+#   source = "../main.html"
 
-  content_type = "text/html"
-}
-resource "aws_s3_object" "css" {
-  bucket       = aws_s3_bucket.buhwalch_bucket.id
-  key          = "style.css"
-  source       = "../style.css"
-  content_type = "text/css"
-}
+#   content_type = "text/html"
+# }
+# resource "aws_s3_object" "css" {
+#   bucket       = aws_s3_bucket.buhwalch_bucket.id
+#   key          = "style.css"
+#   source       = "../style.css"
+#   content_type = "text/css"
+# }
 
-resource "aws_s3_object" "image_logo" {
-  bucket       = aws_s3_bucket.buhwalch_bucket.id
-  key          = "교회 로고.png"
-  source       = "../img/교회 로고.png"
-  content_type = "image/png"
-}
+# resource "aws_s3_object" "image_logo" {
+#   bucket       = aws_s3_bucket.buhwalch_bucket.id
+#   key          = "교회 로고.png"
+#   source       = "../img/교회 로고.png"
+#   content_type = "image/png"
+# }
 
 
 
@@ -93,9 +93,9 @@ resource "aws_cloudfront_distribution" "buhwalch_distribution" {
     # http 접속시 https로 redirect
     viewer_protocol_policy = "redirect-to-https"
     # cache ttl
-    min_ttl                = 0
-    default_ttl            = 60
-    max_ttl                = 600
+    min_ttl     = 0
+    default_ttl = 60
+    max_ttl     = 600
   }
   price_class = "PriceClass_100"
 
@@ -111,7 +111,7 @@ resource "aws_cloudfront_distribution" "buhwalch_distribution" {
 
   viewer_certificate {
     # AWS 기본 주소랑 인증서 사용
-    cloudfront_default_certificate = true 
+    cloudfront_default_certificate = true
   }
 }
 
