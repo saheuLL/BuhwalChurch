@@ -2,9 +2,9 @@ name: S3Automation
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   #ci 과정
@@ -12,41 +12,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js 22.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.x        
-        cache: 'npm'
-        cache-dependency-path: './web/package-lock.json'
-    
-    - name: Install Dependencies
-      run: npm install
-      working-directory: ./web    
-      
-    - name: Build
-      run: npm run build
-      working-directory: ./web
-    
-      #cd 과정
-      #AWS 로그인
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
-        
-      #S3 복사
-    - name: Deploy to S3
-      run: aws s3 sync ./web/out s3://buhwalch-bucket --delete
-      
-      #Cloudfront Invalidation
-    - name: Cloudfront Invalidation
-      run: |
-        aws cloudfront create-invalidation \
-          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "/*"
-        
-    
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: "npm"
+          cache-dependency-path: "./web/package-lock.json"
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./web
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_NAVER_MAP_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID }}
+        run: npm run build
+        working-directory: ./web
+
+        #cd 과정
+        #AWS 로그인
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+        #S3 복사
+      - name: Deploy to S3
+        run: aws s3 sync ./web/out s3://buhwalch-bucket --delete
+
+        #Cloudfront Invalidation
+      - name: Cloudfront Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
