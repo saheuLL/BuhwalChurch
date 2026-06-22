@@ -47,11 +47,7 @@ jobs:
 
         #S3 복사
       - name: Deploy to S3
-        run: |
-          aws s3 sync ./web/out s3://buhwalch-bucket --delete \
-            --exclude "jubo/*/*.jpg" \
-            --exclude "jubo/*/*.jpeg" \           
-            --exclude "jubo/*/*.webp"
+        run: aws s3 sync ./web/out s3://buhwalch-bucket --delete --exclude "jubo/*/*.jpg" --exclude "jubo/*/*.jpeg" --exclude "jubo/*/*.png" --exclude "jubo/*/*.webp"
 
         #Cloudfront Invalidation
       - name: Cloudfront Invalidation

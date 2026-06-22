@@ -1,7 +1,17 @@
 import { X } from "lucide-react"
 
+interface EventItem {
+  id: number
+  title: string[]
+  details: string[]
+  link?: {
+    url: string
+    text: string
+  }
+}
+
 // 일정 데이터 - 1~3개까지 자유롭게 추가/삭제 가능
-const eventsData = [
+const eventsData: EventItem[] = [
   {
     id: 1,
     title: ["호렙산 특별", "새벽기도회"],
@@ -10,18 +20,6 @@ const eventsData = [
       "새벽 4시 40분",
       "위기에서 건지심을 받으라 (시 50:15)",
     ],
-  },
-  {
-    id: 2,
-    title: ["2026 빌리그래함", "의정부 전도대회"],
-    details: [
-      "2026년 5월 17일",
-      "의정부 종합운동장",
-    ],
-    link: {
-      url: "https://ubgc.billygraham.or.kr/",
-      text: "https://ubgc.billygraham.or.kr/",
-    },
   },
   // 일정 추가 예시:
   // {
@@ -33,7 +31,7 @@ const eventsData = [
 ]
 
 // 개별 이벤트 카드 컴포넌트
-function EventCard({ event, totalCount }: { event: typeof eventsData[0]; totalCount: number }) {
+function EventCard({ event, totalCount }: { event: EventItem; totalCount: number }) {
   // 카드 개수에 따라 폰트 크기 조절 (모바일에서)
   const titleSize = totalCount >= 3 ? "text-[16px] sm:text-[25px]" : "text-[20px] sm:text-[25px]"
   const detailSize = totalCount >= 3 ? "text-[13px] sm:text-[20px]" : "text-[16px] sm:text-[20px]"
