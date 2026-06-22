@@ -28,6 +28,11 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_NAVER_MAP_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID }}
+          AWS_REGION: ap-northeast-2
+          AWS_S3_BUCKET: buhwalch-bucket
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          NEXT_PUBLIC_CLOUDFRONT_DOMAIN: ${{ secrets.CLOUDFRONT_DOMAIN }}
         run: npm run build
         working-directory: ./web
 
@@ -42,7 +47,7 @@ jobs:
 
         #S3 복사
       - name: Deploy to S3
-        run: aws s3 sync ./web/out s3://buhwalch-bucket --delete
+        run: aws s3 sync ./web/out s3://buhwalch-bucket --delete --exclude "jubo/*"
 
         #Cloudfront Invalidation
       - name: Cloudfront Invalidation

@@ -26,12 +26,12 @@ export default function LocationContent() {
     // React Strict Mode 등에서 중복 렌더링되는 현상 방지하기 위해 컨테이너 초기화
     mapRef.current.innerHTML = '';
 
-    // 부활교회 좌표 (위도: 37.734689, 경도: 127.065476)
-    const churchLatLng = new window.naver.maps.LatLng(37.734689, 127.065476);
+    // 부활교회 좌표 (위도: 37.746177, 경도: 127.065215)
+    const churchLatLng = new window.naver.maps.LatLng(37.746177, 127.065215);
 
     const mapOptions = {
       center: churchLatLng,
-      zoom: 20, //1~22
+      zoom: 18, //1~22
       zoomControl: true,
       zoomControlOptions: {
         position: window.naver.maps.Position.TOP_RIGHT,
