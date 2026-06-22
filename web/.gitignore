@@ -18,3 +18,5 @@ node_modules
 out/*
 
 .env.local
+
+README_JUBO.md
