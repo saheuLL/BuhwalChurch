@@ -90,22 +90,19 @@ resource "aws_cloudfront_distribution" "buhwalch_distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "S3-Origin"
 
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.url_rewrite.arn
+    }
     cache_policy_id = data.aws_cloudfront_cache_policy.CachingOptimized.id
     # http 접속시 https로 redirect
     viewer_protocol_policy = "redirect-to-https"    
   }  
 
   custom_error_response {
-    error_code            = 403
-    response_code         = 200
-    response_page_path    = "/index.html"
-    error_caching_min_ttl = 10
-  }
-
-  custom_error_response {
     error_code            = 404
-    response_code         = 200
-    response_page_path    = "/index.html"
+    response_code         = 404
+    response_page_path    = "/404.html"
     error_caching_min_ttl = 10
   }
 
@@ -126,8 +123,29 @@ resource "aws_cloudfront_distribution" "buhwalch_distribution" {
 }
 
 
-
-
+# Next.js의 정적 빌드 파일(.html) 매핑을 위한 URL Rewrite Function
+resource "aws_cloudfront_function" "url_rewrite" {
+  name    = "url-rewrite"
+  runtime = "cloudfront-js-1.0"
+  comment = "Rewrite URIs to append .html for Next.js static exports"
+  code    = <<EOF
+function handler(event) {
+    var request = event.request;
+    var uri = request.uri;
+    
+    // URI가 슬래시(/)로 끝나면 index.html을 붙입니다.
+    if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+    } 
+    // 파일 확장자(점 '.')가 없는 경로이면 뒤에 .html을 붙입니다.
+    else if (!uri.includes('.')) {
+        request.uri += '.html';
+    }
+    
+    return request;
+}
+EOF
+}
 
 
 
