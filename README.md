@@ -25,6 +25,8 @@ AWS S3, AWS CloudFront, Terraform, Github Actions, React, Tailwind CSS, AWS Rout
 - Cost & Performance Optimization
 - 트래픽에 따른 유연한 확장성 확보
 - CloudFront: 글로벌 캐싱 및 SSL/TLS 보안 적용 (HTTPS) S3 보안 설정: 퍼블릭 액세스를 차단하고 CloudFront를 통해서만 접근 가능하도록 하는 Origin Access Control(OAC) 정책 적용 시의 권한 설정 이슈 해결
+- CI/CD 파이프라인: GitHub Actions를 연동하여 코드 수정 시 S3로 자동 배포 및 CloudFront 캐시 무효화(Invalidation) 자동화 구현 예정
+- 바이브코딩을 이용한 서브페이지 생성
 
 ### 트러블슈팅
 
@@ -32,7 +34,6 @@ AWS S3, AWS CloudFront, Terraform, Github Actions, React, Tailwind CSS, AWS Rout
 
 ### 향후 계획
 
-- CI/CD 파이프라인: GitHub Actions를 연동하여 코드 수정 시 S3로 자동 배포 및 CloudFront 캐시 무효화(Invalidation) 자동화 구현 예정
+
 - Route53 : 도메인 연결
 - 모니터링 :
-- 바이브코딩을 이용한 서브페이지 생성
