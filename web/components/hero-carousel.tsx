@@ -7,7 +7,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const slides = [
-    { src: "/Carousel1.png", alt: "Carousel 1" },
     { src: "/Carousel2.png", alt: "Carousel 2" },
     { src: "/Carousel3.png", alt: "Carousel 3" },
   ] as const
