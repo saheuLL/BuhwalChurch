@@ -11,16 +11,7 @@ interface EventItem {
 }
 
 // 일정 데이터 - 1~3개까지 자유롭게 추가/삭제 가능
-const eventsData: EventItem[] = [
-  {
-    id: 1,
-    title: ["아동부 수련회"],
-    details: [
-      "8월 3일(월) ~ 8월 5일(수)",
-      "대전 서광교회",
-      "The Blood",
-    ],
-  },
+const eventsData: EventItem[] = [ 
   // 일정 추가 예시:
   // {
   //   id: 3,
