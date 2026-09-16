@@ -22,58 +22,61 @@ export default function HeroCarousel() {
   }
 
   return (
-    <section className="relative w-full" style={{ height: "800px", maxHeight: "50vw" }}>
-      {/* Slides */}
-      <div className="relative w-full h-full overflow-hidden">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.src}
-            className={`absolute inset-0 transition-opacity duration-500 ${
-              currentSlide === index ? "opacity-100" : "opacity-0"
-            }`}
-            aria-hidden={currentSlide !== index}
-          >
-            <Image
-              src={slide.src}
-              alt={slide.alt}
-              fill
-              priority={index === 0}
-              sizes="100vw"
-              className="object-cover"
+    <section className="w-full max-w-[1200px] mx-auto px-0 md:px-4 pt-0 md:pt-4 pb-2 md:pb-6">
+      <div className="relative w-full aspect-[1920/800] md:rounded-2xl overflow-hidden shadow-none md:shadow-md bg-gray-100">
+        {/* Slides */}
+        <div className="relative w-full h-full">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.src}
+              className={`absolute inset-0 transition-opacity duration-500 ${
+                currentSlide === index ? "opacity-100" : "opacity-0"
+              }`}
+              aria-hidden={currentSlide !== index}
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={index === 0}
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Left Arrow */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-11 md:h-11 flex items-center justify-center bg-white/70 hover:bg-white text-gray-700 rounded-full shadow transition-all backdrop-blur-sm"
+          aria-label="이전 슬라이드"
+        >
+          <ChevronLeft className="w-5 h-5 md:w-7 md:h-7" />
+        </button>
+
+        {/* Right Arrow */}
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-11 md:h-11 flex items-center justify-center bg-white/70 hover:bg-white text-gray-700 rounded-full shadow transition-all backdrop-blur-sm"
+          aria-label="다음 슬라이드"
+        >
+          <ChevronRight className="w-5 h-5 md:w-7 md:h-7" />
+        </button>
+
+        {/* Carousel indicators */}
+        <div className="absolute bottom-3 md:bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2">
+          {Array.from({ length: totalSlides }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`h-2 md:h-2.5 rounded-full transition-all ${
+                currentSlide === index ? "w-6 md:w-8 bg-white" : "w-2 md:w-2.5 bg-white/50 hover:bg-white/75"
+              }`}
+              aria-label={`슬라이드 ${index + 1}로 이동`}
             />
-          </div>
-        ))}
-      </div>
-
-      {/* Left Arrow */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/80 hover:bg-white text-gray-700 rounded-full transition-colors"
-        aria-label="이전 슬라이드"
-      >
-        <ChevronLeft className="w-8 h-8" />
-      </button>
-
-      {/* Right Arrow */}
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/80 hover:bg-white text-gray-700 rounded-full transition-colors"
-        aria-label="다음 슬라이드"
-      >
-        <ChevronRight className="w-8 h-8" />
-      </button>
-
-      {/* Carousel indicators */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              currentSlide === index ? "bg-white" : "bg-white/50"
-            }`}
-          />
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )
