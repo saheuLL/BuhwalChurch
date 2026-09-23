@@ -133,12 +133,9 @@ export default async function PraiseListPage() {
         <div className="bg-gray-50 py-10 border-b border-gray-100">
           <div className="max-w-[1200px] mx-auto px-4 text-center">
             <h1 className="text-[26px] sm:text-[30px] font-bold text-gray-800 inline-block relative leading-tight">
-              부활교회 찬양
+              부활 찬양
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#fcaa4c]" />
-            </h1>
-            <p className="text-[14px] sm:text-[15px] text-gray-500 mt-5">
-              주일 예배 찬양 악보 및 은혜로운 소식을 갤러리로 만나보세요
-            </p>
+            </h1>            
           </div>
         </div>
         <PraiseContent initialPraiseData={praiseList} />

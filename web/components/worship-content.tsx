@@ -3,14 +3,15 @@ const leftServices = [
     { name: "수요예배", location: "지하 예배실", time: "오후 8:00" },
     { name: "금요철야 기도회", location: "지하 예배실", time: "오후 8:00" },
     { name: "새벽기도회", location: "지하 예배실", time: "오전 4:40" },    
+    { name: "화요 중보 기도회", location: "지하 예배실", time: "오후 8:00" },
   ]
   
   const rightServices = [
     { name: "주일 저녁 찬양 예배", location: "2층 본당", time: "오후 5:50" },
     { name: "아동부 예배", location: "1층 소예배실", time: "오전 11:00" },
     { name: "중고등부 예배", location: "2층 본당", time: "오전 11:00" },
-    { name: "청년부 모임", location: "1층 소예배실", time: "주일 예배 후" },
-    { name: "화요 중보 기도회", location: "지하 예배실", time: "오후 8:00" },
+    { name: "청년부 모임", location: "", time: "주일 예배 후" },
+    
   ]
   
   function ServiceItem({ service }: { service: { name: string; location: string; time: string } }) {
@@ -62,11 +63,8 @@ const leftServices = [
                 *예배 시간 30분 전에 오셔서 기도로 준비하시고 찬양으로 하나님께 영광을 돌리시길 바랍니다
               </p>
               <p className="text-[14px] sm:text-[16px] text-black leading-relaxed">
-                *예배시간동안 휴대폰을 꺼주시면 감사하겠습니다
-              </p>
-              <p className="text-[14px] sm:text-[16px] text-black leading-relaxed">
-                *준비하신 헌금을 미리 헌금함에 넣어주시면 감사하겠습니다
-              </p>
+                *예배시간동안 휴대폰 소리를 꺼주시면 더욱 은혜롭습니다
+              </p>              
             </div>
           </div>
   

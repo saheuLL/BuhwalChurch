@@ -28,8 +28,7 @@ const menuItems: MenuItem[] = [
     title: "교회안내",
     hasDropdown: true,
     subItems: [
-      { label: "WELCOME", href: "/welcome" },
-      { label: "부활교회는", href: "/aboutBuhwal" },
+      { label: "부활교회는", href: "/welcome" },
       { label: "오시는길", href: "/location" },
       { label: "섬기는 분들", href: "/staff" },
     ],
@@ -97,48 +96,59 @@ export default function Header() {
               isActive || isOpen ? activeLinkClass : inactiveLinkClass
             }`
 
+            const mainHref = item.hasDropdown ? item.subItems[0]?.href : item.href
+
             return (
               <div
                 key={item.title}
-                className="relative"
+                className="relative py-2 group"
                 onMouseEnter={() => item.hasDropdown && setOpenDropdown(index)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                {!item.hasDropdown ? (
-                  <Link href={item.href} className={parentClassName}>
-                    {item.title}
-                  </Link>
-                ) : (
-                  <button type="button" className={parentClassName}>
-                    {item.title}
+                {/* 대메뉴 클릭 시 첫 번째 하위 메뉴(또는 단일 메뉴)로 바로 이동 */}
+                <Link href={mainHref || "#"} className={parentClassName}>
+                  {item.title}
+                  {item.hasDropdown && (
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
                     />
-                  </button>
-                )}
+                  )}
+                </Link>
 
-                {/* Dropdown */}
-                {item.hasDropdown && isOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50">
-                    <div className="bg-white shadow-lg border border-gray-100 min-w-[140px]">
+                {/* Dropdown (CSS group-hover + React state 이중 지원으로 안정성 보장) */}
+                {item.hasDropdown && (
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 pt-1 z-50 ${
+                      isOpen ? "block" : "hidden group-hover:block"
+                    }`}
+                  >
+                    <div className="bg-white shadow-xl border border-gray-100 rounded-md py-1.5 min-w-[140px]">
                       {item.subItems.map((subItem) => {
                         const subActive = isPathActive(pathname, subItem.href)
-                        const className = `block w-full px-4 py-2 text-[14px] text-center transition-colors ${
+                        const className = `block w-full px-4 py-2.5 text-[14px] text-center font-medium transition-colors ${
                           subActive
-                            ? "text-[#fcaa4c] bg-gray-50"
+                            ? "text-[#fcaa4c] bg-amber-50/60 font-bold"
                             : "text-gray-700 hover:text-[#fcaa4c] hover:bg-gray-50"
                         }`
 
                         if (!subItem.href) {
                           return (
-                            <button key={subItem.label} type="button" className={className}>
+                            <span
+                              key={subItem.label}
+                              className="block w-full px-4 py-2.5 text-[14px] text-center text-gray-400 cursor-not-allowed select-none"
+                            >
                               {subItem.label}
-                            </button>
+                            </span>
                           )
                         }
 
                         return (
-                          <Link key={subItem.label} href={subItem.href} className={className}>
+                          <Link
+                            key={subItem.label}
+                            href={subItem.href}
+                            className={className}
+                            onClick={() => setOpenDropdown(null)}
+                          >
                             {subItem.label}
                           </Link>
                         )
@@ -190,9 +200,17 @@ export default function Header() {
                   </Link>
                 ) : (
                   <div className="flex flex-col gap-1">
-                    <span className="text-[16px] font-medium text-gray-400 py-1.5 select-none">
+                    <Link
+                      href={item.subItems[0]?.href || "#"}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`text-[16px] font-semibold py-1.5 transition-colors ${
+                        isMenuActive(pathname, item)
+                          ? "text-[#fcaa4c] font-bold"
+                          : "text-gray-800 hover:text-[#fcaa4c]"
+                      }`}
+                    >
                       {item.title}
-                    </span>
+                    </Link>
                     <div className="pl-3 flex flex-col gap-2 border-l-2 border-amber-200">
                       {item.subItems.map((subItem) => (
                         <Link
