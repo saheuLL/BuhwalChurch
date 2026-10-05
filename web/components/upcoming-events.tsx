@@ -14,8 +14,8 @@ interface EventItem {
 const eventsData: EventItem[] = [ 
   {
   id: 1,
-  title: ["의정부기독교연합회", "연합부흥성회"],
-  details: ["9월 28일(월)~30일(수) 19:30", "의정부제일장로교회", "강사: 주성민 목사"]  
+  title: ["필리핀 델몬트시", "단기선교"],
+  details: ["10월 18일(주일) ~ 22일(목)", "God's Children Church", "제시 목사님"]  
 }
   // 일정 추가 예시:
   // {
