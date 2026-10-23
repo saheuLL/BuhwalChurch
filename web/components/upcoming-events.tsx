@@ -14,9 +14,15 @@ interface EventItem {
 const eventsData: EventItem[] = [ 
   {
   id: 1,
-  title: ["필리핀 델몬트시", "단기선교"],
-  details: ["10월 18일(주일) ~ 22일(목)", "God's Children Church", "제시 목사님"]  
+  title: ["2026", "스룹바벨기도회"],
+  details: ["11월 1일(주일) ~ 30일(월)", "새벽 정오 저녁", "슥 4:7"]  
+},
+{
+  id: 2,
+  title: ["총력전도 및", "추수감사주일"],
+  details: ["11월 29일(주일)", "온가족초청", "" ]  
 }
+
   // 일정 추가 예시:
   // {
   //   id: 3,
